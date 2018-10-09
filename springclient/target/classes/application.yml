@@ -1,0 +1,15 @@
+server:
+  port: 2000
+eureka:
+  instance:
+    prefer-ip-address: true
+    lease-renewal-interval-in-seconds: 10
+    lease-expiration-duration-in-seconds: 5
+  client:
+    shouldFetchRegistry: false,
+    shouldRegisterWithEureka: true
+    service-url:
+      defaultZone: http://localhost:9010/eureka/
+spring:
+  application:
+    name: spring-2000-client
