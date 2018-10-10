@@ -1,33 +1,26 @@
 package com.spring.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import com.spring.controller.RequestModel.PowerRequestModel;
+import com.spring.controller.ResponseModel.PowerResponseModel;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.client.RestTemplate;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * @Auther: CQ02
  * @Date: 2018/10/8 15:09
  * @Description:
  */
+@Api("/data/v1")
 @Controller
 public class PowerController {
-    @Autowired
-    RestTemplate restTemplate;
-    @RequestMapping("index")
-    public @ResponseBody
-    List<Map<String,String>> index(){
-        List<Map<String,String>> list=new ArrayList<>();
-        Map<String,String> map=new HashMap<>();
-        map.put("test1001","test1001");
-        list.add(map);
-        return list;
+    @PostMapping("/index")
+    @ApiOperation("test")
+    public @ResponseBody PowerResponseModel index(@RequestBody PowerRequestModel powerRequestModel){
+
+        return new PowerResponseModel("test1001");
     }
 }

@@ -22,7 +22,7 @@ import java.util.Map;
 public class PowerController {
     @PostMapping("/index")
     @ApiOperation("test")
-    public @ResponseBody PowerResponseModel index(@RequestParam PowerRequestModel powerRequestModel){
+    public @ResponseBody PowerResponseModel index(@RequestBody PowerRequestModel powerRequestModel){
 
         return new PowerResponseModel("test");
     }
