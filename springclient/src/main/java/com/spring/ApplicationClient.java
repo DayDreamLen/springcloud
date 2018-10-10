@@ -17,6 +17,7 @@ public class ApplicationClient {
         SpringApplication.run(ApplicationClient.class);
     }
     @Bean
+    @LoadBalanced
     RestTemplate restTemplate(){
         return new RestTemplate();
     }

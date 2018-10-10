@@ -21,7 +21,7 @@ import java.util.Map;
 public class PowerController {
     @Autowired
     RestTemplate restTemplate;
-    @RequestMapping("index1001")
+    @RequestMapping("index")
     public @ResponseBody
     List<Map<String,String>> index(){
         List<Map<String,String>> list=new ArrayList<>();
