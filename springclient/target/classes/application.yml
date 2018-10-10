@@ -3,8 +3,8 @@ server:
 eureka:
   instance:
     prefer-ip-address: true
-    lease-renewal-interval-in-seconds: 10
-    lease-expiration-duration-in-seconds: 5
+    lease-renewal-interval-in-seconds: 30
+    lease-expiration-duration-in-seconds: 10
   client:
     shouldFetchRegistry: false,
     shouldRegisterWithEureka: true

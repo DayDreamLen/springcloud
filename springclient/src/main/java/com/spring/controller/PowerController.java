@@ -24,7 +24,7 @@ public class PowerController {
 //        map.put("test","test");
 //        list.add(map);
 //        return list;
-        ResponseEntity<String> responseEntity=restTemplate.getForEntity("http://localhost:1000/index1000",String.class);
+        ResponseEntity<String> responseEntity=restTemplate.getForEntity("http://localhost:1001/index1001",String.class);
         return responseEntity.getBody();
     }
 }
