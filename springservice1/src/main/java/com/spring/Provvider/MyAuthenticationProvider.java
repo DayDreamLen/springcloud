@@ -1,6 +1,8 @@
-package com.spring.Filter;
+package com.spring.Provvider;
 
+import com.spring.Service.ServiceImpl.JwtUserDetailsServiceImpl;
 import com.spring.controller.UserController;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -19,12 +21,13 @@ import java.util.Collection;
  */
 @Component
 public class MyAuthenticationProvider implements AuthenticationProvider {
-    private UserController userController=new UserController();
+    @Autowired
+    private JwtUserDetailsServiceImpl jwtUserDetailsService;
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         String username = authentication.getName();
         String password = (String) authentication.getCredentials();
-        UserDetails user = userController.loadUserByUsername(username);
+        UserDetails user = jwtUserDetailsService.loadUserByUsername(username);
         if(user == null){
             throw new BadCredentialsException("用户没有找到");
         }

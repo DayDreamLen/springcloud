@@ -20,7 +20,7 @@ public class PowerController {
     @PostMapping("/index")
     @ApiOperation("test")
     public @ResponseBody PowerResponseModel index(@RequestBody PowerRequestModel powerRequestModel){
-
+        System.out.println(111111);
         return new PowerResponseModel("test1001");
     }
 }

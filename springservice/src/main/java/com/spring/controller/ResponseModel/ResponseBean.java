@@ -1,7 +1,6 @@
 package com.spring.controller.ResponseModel;
 
-import com.cqdev.poverty.api.controller.dto.constant.StatusCode;
-import com.cqdev.poverty.model.response.RestfulResponse;
+import com.spring.controller.constant.StatusCode;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -13,7 +12,7 @@ import lombok.Data;
  */
 @Data
 @ApiModel("基础响应实体")
-public class ResponseBean<T> extends RestfulResponse {
+public class ResponseBean<T> {
     @ApiModelProperty("状态码")
     private int code;
     @ApiModelProperty("数据")

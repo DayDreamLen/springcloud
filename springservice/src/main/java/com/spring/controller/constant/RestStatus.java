@@ -6,4 +6,9 @@ package com.spring.controller.constant;
  * @Description:
  */
 public interface RestStatus {
+    int code();
+
+    String name();
+
+    String message();
 }

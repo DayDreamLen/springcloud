@@ -1,4 +1,4 @@
-package com.cqdev.poverty.utils;
+package com.spring.Util;
 
 import java.util.UUID;
 

@@ -6,4 +6,20 @@ package com.spring.controller.ResponseModel;
  * @Description:
  */
 public class LoginResponseModel {
+    private String token;
+
+    public LoginResponseModel(String token) {
+        this.token = token;
+    }
+
+    public LoginResponseModel() {
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
 }

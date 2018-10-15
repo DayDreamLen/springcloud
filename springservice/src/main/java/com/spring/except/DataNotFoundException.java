@@ -1,4 +1,4 @@
-package com.cqdev.poverty.biz.except;
+package com.spring.except;
 
 /**
  * @author yunfei.li

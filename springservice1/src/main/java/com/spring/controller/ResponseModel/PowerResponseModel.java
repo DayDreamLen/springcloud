@@ -6,7 +6,7 @@ package com.spring.controller.ResponseModel;
  * @Description:
  */
 public class PowerResponseModel {
-    public String test;
+    private String test;
 
     public PowerResponseModel() {
     }

@@ -1,15 +1,15 @@
-package com.cqdev.poverty.api.interceptor;
+package com.spring.interceptor;
 
-import com.cqdev.poverty.api.controller.dto.response.ResponseBean;
-import com.cqdev.poverty.biz.except.TokenInvalidException;
-import com.cqdev.poverty.utils.JwtUtils;
+import com.spring.Util.JwtUtils;
+import com.spring.controller.ResponseModel.ResponseBean;
+import com.spring.except.TokenInvalidException;
 import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.PrintWriter;
+
 
 public class MyInterceptor implements HandlerInterceptor {
     //在请求处理之前进行调用（Controller方法调用之前
@@ -18,6 +18,7 @@ public class MyInterceptor implements HandlerInterceptor {
         System.out.printf("preHandle被调用");
         try {
             String headerToken = httpServletRequest.getHeader("X-Auth-Token");
+
             //获取请求参数中token
             String requetToken = httpServletRequest.getParameter("X-Auth-Token");
             if (StringUtils.isEmpty(headerToken)) {

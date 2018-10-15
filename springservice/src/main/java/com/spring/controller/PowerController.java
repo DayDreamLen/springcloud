@@ -24,6 +24,7 @@ public class PowerController {
     @ApiOperation("test")
     public @ResponseBody PowerResponseModel index(@RequestBody PowerRequestModel powerRequestModel){
 
+        System.out.println("2111");
         return new PowerResponseModel("test");
     }
 }

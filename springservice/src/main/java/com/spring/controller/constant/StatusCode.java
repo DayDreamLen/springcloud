@@ -1,12 +1,13 @@
 package com.spring.controller.constant;
 
-import com.cqdev.poverty.RestStatus;
+
 import com.google.common.collect.ImmutableMap;
 
 /**
  * @author wd
  */
 public enum StatusCode implements RestStatus {
+
 
     OK(200, "请求成功"),
 

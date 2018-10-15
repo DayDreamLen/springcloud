@@ -1,8 +1,10 @@
 package com.spring.config;
 
+import com.spring.Filter.JwtAuthenticationTokenFilter;
 import com.spring.Filter.MacLoginUrlAuthenticationEntryPoint;
-import com.spring.Filter.MyAuthenticationProvider;
-import com.spring.interceptor.MyInterceptor;
+import com.spring.Provvider.MyAuthenticationProvider;
+import com.spring.Until.EntryPointUnauthorizedHandler;
+import com.spring.Until.RestAccessDeniedHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,7 +15,12 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
  * @Auther: CQ02
@@ -24,40 +31,38 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 //开启security注解
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+    private UserDetailsService userDetailsService;
+    private JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
+    private EntryPointUnauthorizedHandler entryPointUnauthorizedHandler;
+    private RestAccessDeniedHandler restAccessDeniedHandler;
+    private PasswordEncoder passwordEncoder;
+
     @Autowired
-    private MyAuthenticationProvider authenticationProvider;
-
-
+    public WebSecurityConfig(UserDetailsService userDetailsService, JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter, EntryPointUnauthorizedHandler entryPointUnauthorizedHandler, RestAccessDeniedHandler restAccessDeniedHandler) {
+        this.userDetailsService = userDetailsService;
+        this.jwtAuthenticationTokenFilter = jwtAuthenticationTokenFilter;
+        this.entryPointUnauthorizedHandler = entryPointUnauthorizedHandler;
+        this.restAccessDeniedHandler = restAccessDeniedHandler;
+        this.passwordEncoder = new BCryptPasswordEncoder();
+    }
 
     @Autowired
-    private MyInterceptor myInterceptor;
-
-    @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
+    public void configureAuthentication(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
+        authenticationManagerBuilder.userDetailsService(this.userDetailsService).passwordEncoder(passwordEncoder);
     }
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        //允许访问项目主路径/的请求
-        //其它请求都要经过拦截验证
-        //同时也允许注销请求
-        //支持表单验证登录
-        http.authorizeRequests()
-                .antMatchers("/").permitAll()
-                .antMatchers(HttpMethod.POST,"/mylogin").permitAll()
+    protected void configure(HttpSecurity httpSecurity) throws Exception {
+        httpSecurity.csrf().disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and().authorizeRequests()
+                .antMatchers( "/").permitAll()
+                .antMatchers("/user/**").permitAll()
                 .anyRequest().authenticated()
-                .and()
-                .logout().permitAll()
-                .and()
-                .exceptionHandling().authenticationEntryPoint( macLoginUrlAuthenticationEntryPoint())
-                .and()
-                .formLogin()
-                    .permitAll();
-        //取消掉默认的csrf认证
-        http.csrf().disable();
-    }
+                .and().headers().cacheControl();
+        httpSecurity.addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
+        httpSecurity.exceptionHandling().authenticationEntryPoint(entryPointUnauthorizedHandler).accessDeniedHandler(restAccessDeniedHandler);
 
+    }
 
     @Override
     public void configure(WebSecurity web) throws Exception {
@@ -65,21 +70,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
               "/webjars/springfox-swagger-ui/**","/v2/api-docs/**","/swagger-ui.html");
     }
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.authenticationProvider(authenticationProvider);
-//      auth.userDetailsService(customUserDetailsService()).passwordEncoder(passwordEncoder());passwordEncoder
-    }
-
-    @Bean
-    public AuthenticationEntryPoint macLoginUrlAuthenticationEntryPoint() {
-        return new MacLoginUrlAuthenticationEntryPoint("/login/index");
-    }
-
-    @Bean
-    public  MyInterceptor myInterceptor(){
-        return new MyInterceptor();
-    }
+//    @Override
+//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        auth.authenticationProvider(authenticationProvider);
+////      auth.userDetailsService(customUserDetailsService()).passwordEncoder(passwordEncoder());passwordEncoder
+//    }
+//
+//    @Bean
+//    public AuthenticationEntryPoint macLoginUrlAuthenticationEntryPoint() {
+//        return new MacLoginUrlAuthenticationEntryPoint("/login");
+//    }
 
 
 }

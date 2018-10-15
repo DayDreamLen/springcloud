@@ -1,8 +1,9 @@
 package com.spring.Util;
 
 
-import com.cqdev.poverty.api.controller.dto.constant.StatusCode;
-import com.cqdev.poverty.api.controller.dto.response.ResponseBean;
+
+import com.spring.controller.ResponseModel.ResponseBean;
+import com.spring.controller.constant.StatusCode;
 import io.jsonwebtoken.*;
 import org.apache.commons.codec.binary.Base64;
 
