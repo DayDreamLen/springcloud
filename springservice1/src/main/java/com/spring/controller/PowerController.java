@@ -4,6 +4,7 @@ import com.spring.controller.RequestModel.PowerRequestModel;
 import com.spring.controller.ResponseModel.PowerResponseModel;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,10 +18,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Api("/data/v1")
 @Controller
 public class PowerController {
+    //@PreAuthorize("hasAuthority('admin')")
     @PostMapping("/index")
     @ApiOperation("test")
     public @ResponseBody PowerResponseModel index(@RequestBody PowerRequestModel powerRequestModel){
-        System.out.println(111111);
         return new PowerResponseModel("test1001");
     }
 }

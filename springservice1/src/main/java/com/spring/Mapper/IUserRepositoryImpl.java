@@ -12,17 +12,17 @@ import java.util.List;
  * @Description:
  */
 @Component
-public class IUserRepositoryImpl implements IUserRepository {
-    @Override
-    public User findByUserName(String username) {
-        User user=new User();
-        List<String> list=new ArrayList<>();
-        list.add("admin");
-        user.setId(1L);
-        user.setUserName("test");
-        user.setPassword("test");
-        user.setRoles(list);
-        return user;
-    }
+public class IUserRepositoryImpl  /*implements UserMapper*/ {
+//    @Override
+//    public User findByUserName(String username) {
+//        User user=new User();
+//        List<String> list=new ArrayList<>();
+//        list.add("admin");
+//        user.setId(1L);
+//        user.setUserName("test");
+//        user.setPassword("test");
+//        user.setRoles(list);
+//        return user;
+//    }
 
 }

@@ -4,6 +4,8 @@ package com.spring.controller;
 import com.spring.Entity.User;
 import com.spring.Provvider.MyAuthenticationProvider;
 import com.spring.Service.UserService;
+import com.spring.controller.RequestModel.UserRequestModel;
+import com.spring.controller.ResponseModel.PowerResponseModel;
 import com.spring.controller.ResponseModel.UserReponseModel;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -25,7 +27,7 @@ public class UserController {
     @Autowired
     UserService userService;
     @PostMapping("/user/login")
-   public @ResponseBody UserReponseModel login(@RequestBody User user){
+   public @ResponseBody UserReponseModel login(@RequestBody UserRequestModel user){
        String token=userService.login(user);
        return new UserReponseModel(user.getUserName(),token);
    }

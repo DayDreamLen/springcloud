@@ -1,6 +1,7 @@
 package com.spring.Provvider;
 
 import com.spring.Service.ServiceImpl.JwtUserDetailsServiceImpl;
+import com.spring.Until.Md5Util;
 import com.spring.controller.UserController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -31,9 +32,8 @@ public class MyAuthenticationProvider implements AuthenticationProvider {
         if(user == null){
             throw new BadCredentialsException("用户没有找到");
         }
-
         //加密过程在这里体现
-        if (!password.equals(user.getPassword())) {
+        if (!Md5Util.md5(password).equals(user.getPassword())) {
             System.out.print("密码错误");
             throw new BadCredentialsException("密码错误");
         }

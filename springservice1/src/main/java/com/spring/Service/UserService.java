@@ -1,6 +1,8 @@
 package com.spring.Service;
 
 import com.spring.Entity.User;
+import com.spring.controller.RequestModel.UserRequestModel;
+import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Service;
 
 /**
@@ -9,5 +11,5 @@ import org.springframework.stereotype.Service;
  * @Description:
  */
 public interface UserService {
-    public String login(User user);
+    public String login(UserRequestModel user);
 }

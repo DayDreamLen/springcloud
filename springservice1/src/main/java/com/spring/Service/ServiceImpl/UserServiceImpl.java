@@ -1,18 +1,16 @@
 package com.spring.Service.ServiceImpl;
 
 import com.spring.Entity.User;
-import com.spring.Mapper.IUserRepository;
+import com.spring.Mapper.UserMapper;
 import com.spring.Provvider.MyAuthenticationProvider;
 import com.spring.Service.UserService;
 import com.spring.Until.JwtTokenUtil;
+import com.spring.controller.RequestModel.UserRequestModel;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.parameters.P;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
 /**
@@ -29,10 +27,10 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
     @Autowired
-    private IUserRepository iUserRepository;
+    private UserMapper iUserRepository;
 
     @Override
-    public String login(User user) {
+    public String login(UserRequestModel user) {
         UsernamePasswordAuthenticationToken upToken = new UsernamePasswordAuthenticationToken(user.getUserName(), user.getPassword());
         Authentication authentication = myAuthenticationProvider.authenticate(upToken);
         SecurityContextHolder.getContext().setAuthentication(authentication);
